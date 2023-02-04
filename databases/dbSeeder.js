@@ -82,199 +82,211 @@ export const seeder = () => {
             tx.executeSql('select * from transactions where desc= ?', ['Kerjaan'], (tx, resultTransaction) => {
                 const date = new Date();
                 if (resultTransaction.rows.length < 1) {
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 0), 1, 200000, 'Pangandaran', 4], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 7), 1, 200000, 'Pangandaran', 4], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 0), 1, 200000, 'Pangandaran', 4], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 7), 1, 200000, 'Pangandaran', 4], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 0), 1, 200000, 'Pangandaran', 4], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 7), 1, 200000, 'Pangandaran', 4], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 0), 1, 200000, 'Pangandaran', 4], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 7), 1, 200000, 'Pangandaran', 4], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 0), 1, 200000, 'Pangandaran', 4], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 7), 1, 200000, 'Pangandaran', 4], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 0), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 7), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 0), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 7), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 0), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
-                        resolve(resCategory.rowsAffected)
-                    }, (_, error) => {
-                        reject(error);
-                    })
-
-                    // 
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 1), 1, 300000, 'Ciwidey', 4], (tx, resCategory) => {
-                        resolve(resCategory.rowsAffected)
-                    }, (_, error) => {
-                        reject(error);
-                    })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 1), 1, 300000, 'Ciwidey', 4], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 7), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
 
                     // 
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 2), 1, 200000, 'daging,baso dan sayuran', 3], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 6), 1, 300000, 'Ciwidey', 4], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 2), 1, 200000, 'daging,baso dan sayuran', 3], (tx, resCategory) => {
-                        resolve(resCategory.rowsAffected)
-                    }, (_, error) => {
-                        reject(error);
-                    })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 2), 1, 200000, 'daging,baso dan sayuran', 3], (tx, resCategory) => {
-                        resolve(resCategory.rowsAffected)
-                    }, (_, error) => {
-                        reject(error);
-                    })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 2), 1, 200000, 'daging,baso dan sayuran', 3], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 6), 1, 300000, 'Ciwidey', 4], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
 
                     // 
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 3), 1, 150000, 'popok', 5], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 5), 1, 200000, 'daging,baso dan sayuran', 3], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 3), 1, 150000, 'popok', 5], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 5), 1, 200000, 'daging,baso dan sayuran', 3], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 3), 0, 200000, 'Projekan', 2], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 5), 1, 200000, 'daging,baso dan sayuran', 3], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 3), 0, 200000, 'Projekan', 2], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 5), 1, 200000, 'daging,baso dan sayuran', 3], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 3), 0, 200000, 'Projekan', 2], (tx, resCategory) => {
-                        resolve(resCategory.rowsAffected)
-                    }, (_, error) => {
-                        reject(error);
-                    })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 3), 0, 200000, 'Projekan', 2], (tx, resCategory) => {
-                        resolve(resCategory.rowsAffected)
-                    }, (_, error) => {
-                        reject(error);
-                    })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 3), 0, 200000, 'Projekan', 2], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 5), 1, 200000, 'daging,baso dan sayuran', 3], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
 
                     // 
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 4), 1, 50000, 'sayuran dan daging', 3], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 4), 1, 150000, 'popok', 5], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 4), 1, 100000, 'sayuran dan daging', 3], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 4), 1, 150000, 'popok', 5], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 4), 1, 150000, 'sayuran dan daging', 3], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 4), 0, 200000, 'Projekan', 2], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 4), 0, 300000, 'Projekan', 2], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 4), 0, 200000, 'Projekan', 2], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 4), 0, 400000, 'Projekan', 2], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 4), 0, 200000, 'Projekan', 2], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-
-                    // 
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 5), 1, 100000, 'earphone', 5], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 4), 0, 200000, 'Projekan', 2], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 5), 1, 100000, 'earphone', 5], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 4), 0, 200000, 'Projekan', 2], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 6), 1, 25000, 'susu', 6], (tx, resCategory) => {
-                        resolve(resCategory.rowsAffected)
-                    }, (_, error) => {
-                        reject(error);
-                    })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 6), 1, 25000, 'susu', 6], (tx, resCategory) => {
-                        resolve(resCategory.rowsAffected)
-                    }, (_, error) => {
-                        reject(error);
-                    })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 6), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
-                        resolve(resCategory.rowsAffected)
-                    }, (_, error) => {
-                        reject(error);
-                    })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 6), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
-                        resolve(resCategory.rowsAffected)
-                    }, (_, error) => {
-                        reject(error);
-                    })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 6), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
-                        resolve(resCategory.rowsAffected)
-                    }, (_, error) => {
-                        reject(error);
-                    })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 6), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 4), 0, 200000, 'Projekan', 2], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
 
                     // 
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 7), 1, 200000, 'Baju', 6], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 3), 1, 50000, 'sayuran dan daging', 3], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 7), 0, 300000, 'Kerjaan', 6], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 3), 1, 100000, 'sayuran dan daging', 3], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
                     })
-                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [addDays(date, 7), 0, 300000, 'Kerjaan', 6], (tx, resCategory) => {
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 3), 1, 150000, 'sayuran dan daging', 3], (tx, resCategory) => {
+                        resolve(resCategory.rowsAffected)
+                    }, (_, error) => {
+                        reject(error);
+                    })
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 3), 0, 300000, 'Projekan', 2], (tx, resCategory) => {
+                        resolve(resCategory.rowsAffected)
+                    }, (_, error) => {
+                        reject(error);
+                    })
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 3), 0, 400000, 'Projekan', 2], (tx, resCategory) => {
+                        resolve(resCategory.rowsAffected)
+                    }, (_, error) => {
+                        reject(error);
+                    })
+
+                    // 
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 2), 1, 100000, 'earphone', 5], (tx, resCategory) => {
+                        resolve(resCategory.rowsAffected)
+                    }, (_, error) => {
+                        reject(error);
+                    })
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 2), 1, 100000, 'earphone', 5], (tx, resCategory) => {
+                        resolve(resCategory.rowsAffected)
+                    }, (_, error) => {
+                        reject(error);
+                    })
+
+                    // 
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 1), 1, 25000, 'susu', 6], (tx, resCategory) => {
+                        resolve(resCategory.rowsAffected)
+                    }, (_, error) => {
+                        reject(error);
+                    })
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 1), 1, 25000, 'susu', 6], (tx, resCategory) => {
+                        resolve(resCategory.rowsAffected)
+                    }, (_, error) => {
+                        reject(error);
+                    })
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 1), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
+                        resolve(resCategory.rowsAffected)
+                    }, (_, error) => {
+                        reject(error);
+                    })
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 1), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
+                        resolve(resCategory.rowsAffected)
+                    }, (_, error) => {
+                        reject(error);
+                    })
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 1), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
+                        resolve(resCategory.rowsAffected)
+                    }, (_, error) => {
+                        reject(error);
+                    })
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 1), 0, 200000, 'Kerjaan', 1], (tx, resCategory) => {
+                        resolve(resCategory.rowsAffected)
+                    }, (_, error) => {
+                        reject(error);
+                    })
+
+                    // 
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 0), 1, 200000, 'Baju', 6], (tx, resCategory) => {
+                        resolve(resCategory.rowsAffected)
+                    }, (_, error) => {
+                        reject(error);
+                    })
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 0), 0, 300000, 'Kerjaan', 1], (tx, resCategory) => {
+                        resolve(resCategory.rowsAffected)
+                    }, (_, error) => {
+                        reject(error);
+                    })
+                    tx.executeSql('insert into transactions (date,position,value,desc,category_id) values (?,?,?,?,?)', [minusDays(date, 0), 0, 300000, 'Kerjaan', 1], (tx, resCategory) => {
                         resolve(resCategory.rowsAffected)
                     }, (_, error) => {
                         reject(error);
@@ -288,7 +300,7 @@ export const seeder = () => {
     })
 }
 
-function addDays(date, days) {
+function minusDays(date, days) {
     var result = new Date(date);
     result.setDate(result.getDate() - days);
 

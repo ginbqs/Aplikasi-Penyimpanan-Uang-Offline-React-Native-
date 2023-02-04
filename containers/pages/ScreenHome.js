@@ -40,6 +40,8 @@ export default function ScreenHome({ navigation }) {
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             getData(1)
+            getDataChart()
+            // seeder();
         });
         if (selectedConfig.fetched) {
             return unsubscribe;
@@ -53,11 +55,15 @@ export default function ScreenHome({ navigation }) {
     }, [selectedConfig])
     useEffect(() => {
         if (selectedChart.day && selectedChart.type != '' && selectedConfig.fetched) {
-            dispatch(transactionAction.setChart(selectedChart.day, selectedChart.type))
+            getDataChart()
         }
     }, [selectedChart.day, selectedChart.type, selectedConfig.fetched]);
     const getData = async (page) => {
         dispatch(transactionAction.setTransactions(page))
+    }
+
+    const getDataChart = async () => {
+        dispatch(transactionAction.setChart(selectedChart.day, selectedChart.type))
     }
 
     const handleTransactionDeleteItem = async (item) => {
@@ -114,7 +120,8 @@ export default function ScreenHome({ navigation }) {
     }
     const versionAndroid = Platform.constants['Version'];
     if (!selectedConfig.fetched) return <Loading size={70} />
-
+    // console.log('selectedTransactions \n\n')
+    // console.log(selectedTransactions)
     return (
         <View style={{ flex: 1, flexDirection: 'column' }}>
             <View style={{ ...styles.containerHeader, height: (versionAndroid >= 27 ? 325 : 75) }}>

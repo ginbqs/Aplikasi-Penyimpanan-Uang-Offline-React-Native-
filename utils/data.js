@@ -57,6 +57,15 @@ export const formatDate = (date, format) => {
   }
 }
 
+export const convertDate = (date, formatAwal, formatFinal) => {
+  if(formatAwal === 'yyyy-mm-dd'){
+    if(formatFinal === 'dd-mm-yyyy'){
+      let newDate = date.split('-');
+      return `${SprintF(newDate[2],2)}-${SprintF(newDate[1],2)}-${newDate[0]}`
+    }
+  }
+}
+
 export const urlImage = 'https://img.freepik.com/free-vector/abstract-3d-background-with-black-paper-layers_87202-1106.jpg?t=st=1651519187~exp=1651519787~hmac=d0d41de44e605a3c4a6a557ef4c474a7c66557ad6ceb461225812efd0d9297a8&w=1380'
 
 

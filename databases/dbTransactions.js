@@ -39,7 +39,7 @@ export const fetchTransactionFilter = (filters) => {
                 let date2 = new Date(filters?.date2)
                 var and = '';
                 and = `${where != '' ? ' AND ' : ''}`
-                where += `${and} date >= '${date1.getFullYear()}-${SprintF(parseInt(date1.getMonth()) + 1, 2)}-${SprintF(parseInt(date1.getDate()), 2)} 00:00:00' and date <= '${date2.getFullYear()}-${SprintF(parseInt(date2.getMonth()) + 1, 2)}-${SprintF(date2.getDate(), 2)} 23:59:59' `
+                where += `${and} DATE(date) between '${date1.getFullYear()}-${SprintF(parseInt(date1.getMonth()) + 1, 2)}-${SprintF(parseInt(date1.getDate()), 2)}' and  '${date2.getFullYear()}-${SprintF(parseInt(date2.getMonth()) + 1, 2)}-${SprintF(date2.getDate(), 2)}' `
             }
             if (filters?.position_id === 'pengeluaran') {
                 var and = '';

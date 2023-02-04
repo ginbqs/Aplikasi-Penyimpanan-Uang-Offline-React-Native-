@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
                 data: newData,
                 page: action.page,
                 fetched: true,
-                isEnd: false,
+                isEnd: action.isEnd
             }
         case TRANSACTION_END:
             return {

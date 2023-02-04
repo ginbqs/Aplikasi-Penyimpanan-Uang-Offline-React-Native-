@@ -1,5 +1,5 @@
 import { SprintF } from '../../utils/Number';
-import { fetchTransaction, insertTransaction, updateTransactionItem, deleteTransactionItem } from "../../databases/dbTransactions"
+import { fetchTransaction, insertTransaction, updateTransactionItem, deleteTransactionItem,sumTransaction } from "../../databases/dbTransactions"
 import { getDataChart, getDataChartCategory } from "../../databases/dbCharts"
 import { listColors } from "../../utils/data";
 
@@ -23,11 +23,12 @@ export const setTransactions = (page) => {
     return async dispatch => {
         try {
             const dbRestultTransactions = await fetchTransaction(page)
-            if (dbRestultTransactions.length > 0) {
+            if (dbRestultTransactions.length > 0 || page===1) {
                 await dispatch({
                     type: TRANSACTION_SET,
                     data: dbRestultTransactions,
-                    page: page
+                    page: page,
+                    isEnd: false
                 })
             } else {
                 await dispatch({
@@ -35,6 +36,11 @@ export const setTransactions = (page) => {
                     isEnd: true
                 })
             }
+            const dbResultTransactions = await sumTransaction()
+            await dispatch({
+                type: TRANSACTION_SUM,
+                data: dbResultTransactions,
+            })
         } catch (error) {
             throw error
         }
@@ -105,11 +111,12 @@ export const setChart = (day, typeChart) => {
             if (typeChart == 'Semua') {
                 const now = new Date()
                 const endDay = new Date(now.getFullYear() + '-' + SprintF(now.getMonth() + 1, 2) + '-' + SprintF(day, 2))
-                endDay.setDate(endDay.getDate() + 1);
-                const date1 = endDay.getFullYear() + '-' + SprintF(endDay.getMonth() + 1, 2) + '-' + SprintF(endDay.getDate(), 2);
+                const endDaySql = new Date(now.getFullYear() + '-' + SprintF(now.getMonth() + 1, 2) + '-' + SprintF(day, 2))
+                endDaySql.setDate(endDaySql.getDate() + 1);
+                const date1 = endDaySql.getFullYear() + '-' + SprintF(endDaySql.getMonth() + 1, 2) + '-' + SprintF(endDaySql.getDate(), 2);
 
                 const startDay = new Date(now.getFullYear() + '-' + SprintF(now.getMonth() + 1, 2) + '-' + SprintF(day, 2))
-                startDay.setDate(startDay.getDate() - 6);
+                startDay.setDate(startDay.getDate() - 7);
                 const date2 = startDay.getFullYear() + '-' + SprintF(startDay.getMonth() + 1, 2) + '-' + SprintF(startDay.getDate(), 2);
                 const dbResult = await getDataChart(date1, date2)
                 var dataChart = {
@@ -137,7 +144,7 @@ export const setChart = (day, typeChart) => {
                     var valueSpending = chartDateSpending[thisDate] ? chartDateSpending[thisDate] : 0
                     arrSpendingOrigin.push(valueSpending)
                 }
-                await arrDays.pop();
+                // await arrDays.pop();
                 dataChart['dataIncome'] = await arrIncomeOrigin
                 dataChart['dataSpending'] = await arrSpendingOrigin
                 dataChart['labels'] = await arrDays

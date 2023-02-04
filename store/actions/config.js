@@ -21,11 +21,6 @@ export const setConfig = () => {
                     type: CATEGORIES_SET,
                     categories: dbResultCategory
                 })
-                const dbRestultTransactions = await sumTransaction()
-                await dispatch({
-                    type: TRANSACTION_SUM,
-                    data: dbRestultTransactions,
-                })
             } else {
                 await dispatch({
                     type: CONFIGS_FETCH,

@@ -13,6 +13,7 @@ import Select from '../../components/molecules/Select';
 import ButtonOpacity from '../../components/atoms/ButtonOpacity'
 import * as transactionAction from '../../store/actions/transactions'
 import DatePicker from '../../components/molecules/DatePicker';
+import { SprintF } from '../../utils/Number';
 
 const ScreenHomeForm = ({ navigation, route }) => {
     const { transId } = route.params;
@@ -94,16 +95,11 @@ const ScreenHomeForm = ({ navigation, route }) => {
     };
 
     const handleConfirmDate = useCallback(async (event, selectedDate) => {
-        const currentDate = selectedDate;
         setDatePickerVisibility(false);
-        var today = new Date(currentDate);
+        var today = new Date(selectedDate.nativeEvent.timestamp);
         const yyyy = today.getFullYear();
-        let mm = today.getMonth() + 1; // Months start at 0!
-        let dd = today.getDate();
-
-        if (dd < 10) dd = '0' + dd;
-        if (mm < 10) mm = '0' + mm;
-
+        let mm = SprintF(today.getMonth() + 1,2); // Months start at 0!
+        let dd = SprintF(today.getDate(),2);
         today = dd + '/' + mm + '/' + yyyy;
         inputChangedHandler('date', today)
     }, []);
@@ -200,7 +196,7 @@ const ScreenHomeForm = ({ navigation, route }) => {
                                 />
                             </View>
                             <View style={{ flex: 1, paddingTop: 20, marginLeft: 5 }}>
-                                <ButtonOpacity onPress={showDatePicker} variant="primary" outline>
+                                <ButtonOpacity onPress={showDatePicker.bind(this)} variant="primary" outline>
                                     <View style={{ flexDirection: 'row' }}>
                                         <Icon name="calendar-outline" size={19} color={Colors.primary500} />
                                     </View>

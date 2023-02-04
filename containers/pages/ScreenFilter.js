@@ -1,11 +1,11 @@
-import React, { useRef, useState, useCallback,useEffect } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import { View, StyleSheet, SafeAreaView, FlatList, Alert, PermissionsAndroid } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
+import { showMessage } from "react-native-flash-message";
 import { useDispatch, useSelector } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons';
-import { DocumentDirectoryPath, writeFile } from 'react-native-fs';
 import XLSX from 'xlsx';
-
+var RNFS = require('react-native-fs');
 import * as transactionFilterAction from '../../store/actions/transactionsfilter'
 
 import Colors from "../../utils/Colors";
@@ -17,7 +17,7 @@ import Loading from '../../components/atoms/Loading';
 import Input from '../../components/molecules/Input';
 import DatePicker from '../../components/molecules/DatePicker';
 import Select from '../../components/molecules/Select';
-import { formatDate } from "../../utils/data";
+import { convertDate, formatDate } from "../../utils/data";
 import ItemTransactionFilter from "../../components/organisms/ItemTransactionFilter";
 
 function FilterComponent({ selectedConfig, tempCtagories, showDatePicker, isDatePickerVisible, submitHandler, handleCancelTransaction, inputs, handleConfirmDate, inputChangedHandler, onChangeText }) {
@@ -122,16 +122,17 @@ function FilterComponent({ selectedConfig, tempCtagories, showDatePicker, isDate
     )
 }
 
-export default function ScreenFilter({navigation}) {
+export default function ScreenFilter({ navigation }) {
     const selectedConfig = useSelector(state => state.configs)
     const selectedTransactionsFilter = useSelector(state => state.transactionsFilter)
-
     const dispatch = useDispatch();
 
     const selectedCategories = useSelector(state => state.categories.categories)
-    let tempCtagories = [];
+    let tempCtagories = [{id:'',value:'Pilih Kategori'}];
     if (Object.entries(selectedCategories).length > 0) {
-        tempCtagories = Object.entries(selectedCategories).map((e) => ({ 'id': e[0], 'value': e[1] }));
+        Object.entries(selectedCategories).map((e) => {
+            tempCtagories.push({ 'id': e[0], 'value': e[1] });
+        })
     }
     var date = new Date();
     const initialValue = {
@@ -146,7 +147,6 @@ export default function ScreenFilter({navigation}) {
     const [inputs, setInputs] = useState(initialValue)
     const refRBSheet = useRef();
     const [isDatePickerVisible, setDatePickerVisibility] = useState({ identifier: '', show: false });
-    const [fileText, setFileText] = useState('asuuu');
     const showDatePicker = (inputIdentifier) => {
         setDatePickerVisibility((curInputs) => {
             return {
@@ -181,11 +181,8 @@ export default function ScreenFilter({navigation}) {
             inputChangedHandler(identifier + '_selected', item)
         }
     }
-    const handleEditTransactions = () => {
-
-    }
     useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', async() => {
+        const unsubscribe = navigation.addListener('focus', async () => {
             await setInputs(initialValue)
             await getData();
         });
@@ -225,25 +222,112 @@ export default function ScreenFilter({navigation}) {
     const getData = async () => {
         dispatch(transactionFilterAction.setTransactions(inputs))
     }
+    const exportDataToExcel = () => {
+
+        // Created Sample data
+        let sample_data_to_export = [];
+        selectedTransactionsFilter.data.map(function (val, key) {
+            sample_data_to_export.push({
+                tanggal: convertDate(val.date, 'yyyy-mm-dd', 'dd-mm-yyyy'),
+                posisi: val.position == '0' ? 'Pemasukan' : 'Pengeluaran',
+                jumlah: val.value,
+                kategori: selectedCategories[val.category_id],
+                deskripsi: val.desc
+            })
+        })
+        let wb = XLSX.utils.book_new();
+        let ws = XLSX.utils.json_to_sheet(sample_data_to_export)
+        XLSX.utils.book_append_sheet(wb, ws, "Users")
+        const wbout = XLSX.write(wb, { type: 'binary', bookType: "xlsx" });
+        // console.log(wbout)
+        // Write generated excel to Storage
+        RNFS.writeFile(RNFS.DownloadDirectoryPath + '/uangku.xlsx', wbout, 'ascii').then((r) => {
+            showMessage({
+                message: "Data berhasil disimpan. Silahkan cari file UangKu.xlsx pada folder download",
+                type: "success",
+                duration: 3000
+            });
+        }).catch((e) => {
+            console.log('Error', e);
+            showMessage({
+                message: "Data gagal disimpan!",
+                type: "danger",
+            });
+        });
+
+    }
+    const handleExportTransactions = async () => {
+        try {
+            // Check for Permission (check if permission is already given or not)
+            let isPermitedExternalStorage = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
+
+            if (!isPermitedExternalStorage) {
+
+                // Ask for permission
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                    {
+                        title: "Storage permission needed",
+                        buttonNeutral: "Ask Me Later",
+                        buttonNegative: "Cancel",
+                        buttonPositive: "OK"
+                    }
+                );
+
+
+                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                    // Permission Granted (calling our exportDataToExcel function)
+                    exportDataToExcel();
+                    console.log("Permission granted");
+                } else {
+                    // Permission denied
+                    console.log("Permission denied");
+                }
+            } else {
+                // Already have Permission (calling our exportDataToExcel function)
+                exportDataToExcel();
+            }
+        } catch (e) {
+            console.log('Error while checking permission');
+            console.log(e);
+            return
+        }
+    }
 
     return (
         <View
             style={styles.container}
         >
             {
-                selectedConfig.manage.toLowerCase() == 'semua' && (
-                    <Card styleProps={{ ...styles.containerPemasukanPengeluaran, marginTop: 10 }}>
-                        <View>
-                            <Headline>{Currency(selectedTransactionsFilter.income, 'rp')}</Headline>
-                            <SubHead styleProps={{ color: Colors.primary500 }}>Total Pemasukan</SubHead>
-                        </View>
-                        <View>
-                            <Headline>{Currency(selectedTransactionsFilter.spending, 'rp')}</Headline>
-                            <SubHead styleProps={{ color: Colors.primary500 }}>Total Pengeluaran</SubHead>
-                        </View>
-                    </Card>
-                )
-            }
+                    selectedConfig.manage.toLowerCase() == 'semua' ? (
+                        <Card styleProps={{ ...styles.containerPemasukanPengeluaran, marginTop: 10 }}>
+                            <View>
+                                <Headline>{Currency(selectedTransactionsFilter.income, 'rp')}</Headline>
+                                <SubHead styleProps={{ color: Colors.primary500 }}>Total Pemasukan</SubHead>
+                            </View>
+                            <View>
+                                <Headline>{Currency(selectedTransactionsFilter.spending, 'rp')}</Headline>
+                                <SubHead styleProps={{ color: Colors.primary500 }}>Total Pengeluaran</SubHead>
+                            </View>
+                        </Card>
+                    ) : (
+                        <Card styleProps={{ ...styles.containerPemasukanPengeluaran, marginTop: 10,justifyContent:'flex-start' }}>
+                            {
+                                selectedConfig.manage.toLowerCase() == 'pemasukan' ? (
+                                    <View>
+                                        <Headline>{Currency(selectedTransactionsFilter.income, 'rp')}</Headline>
+                                        <SubHead styleProps={{ color: Colors.primary500 }}>Total Pemasukan</SubHead>
+                                    </View>
+                                ) : (
+                                    <View>
+                                        <Headline>{Currency(selectedTransactionsFilter.spending, 'rp')}</Headline>
+                                        <SubHead styleProps={{ color: Colors.primary500 }}>Total Pengeluaran</SubHead>
+                                    </View>
+                                )
+                            }
+                        </Card>
+                    )
+                }
             <SafeAreaView style={styles.containerFinance}>
                 <View style={{ alignSelf: 'flex-end', flexDirection: 'row' }}>
                     <View style={{ marginRight: 5 }}>
@@ -254,14 +338,14 @@ export default function ScreenFilter({navigation}) {
                             </View>
                         </ButtonOpacity>
                     </View>
-                    {/* <View style={{ marginRight: 5 }}>
+                    <View style={{ marginRight: 5 }}>
                         <ButtonOpacity onPress={() => handleExportTransactions('')} variant="success" outline>
                             <View style={{ flexDirection: 'row' }}>
                                 <Icon name='download' size={21} color={Colors.success500} />
                                 <Footnote styleProps={{ marginHorizontal: 5, marginVertical: 1, color: Colors.success600 }}>Export</Footnote>
                             </View>
                         </ButtonOpacity>
-                    </View> */}
+                    </View>
                     <View >
                         <ButtonOpacity onPress={() => refRBSheet.current.open()} variant="primary" >
                             <View style={{ flexDirection: 'row' }}>

@@ -44,6 +44,7 @@ const Header = ({ dataChart, urlImage, urLConfig, config, saldo, setDay, hanldeC
     }
 
     const listDate = listThisDate();
+
     return (
         <View style={styles.chartContainer}>
             <ImageBackground source={{ uri: urlImage }} resizeMode="cover" style={{ ...styles.imageHeader, height: versionAndroid >= 8.1 ? 220 : 115 }}>
